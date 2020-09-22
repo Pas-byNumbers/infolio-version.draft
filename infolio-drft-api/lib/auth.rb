@@ -17,15 +17,15 @@ class Auth
     begin
       JWT.decode(
         token,
-        Auth.combination,
+        combination,
         true,
-        algorithm: Auth.algorithm_type,
+        algorithm: algorithm_type,
       )
     rescue JWT::DecodeError
       nil
     end
   end
-  
+
   def self.combination
     ENV["S3SS10N_AUTH_S3CR3T"]
   end
