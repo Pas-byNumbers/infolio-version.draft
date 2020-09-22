@@ -1,11 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authorized
 
-  def encode_token(payload)
-    # should store secret in env variable
-    JWT.encode(payload, 'Scr4mb13')
-  end
-
   def auth_header
     # { Authorization: 'Bearer <token>' }
     request.headers['Authorization']
@@ -15,11 +10,7 @@ class ApplicationController < ActionController::API
     if auth_header
       token = auth_header.split(' ')[1]
       # header: { 'Authorization': 'Bearer <token>' }
-      begin
-        JWT.decode(token, 'Scr4mb13', true, algorithm: 'HS256')
-      rescue JWT::DecodeError
-        nil
-      end
+      Auth.decode(token)
     end
   end
 
@@ -35,6 +26,8 @@ class ApplicationController < ActionController::API
   end
 
   def authorized
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    render json: 
+    { message: 'Please log in' }, 
+    status: :unauthorized unless logged_in?
   end
 end

@@ -1,4 +1,4 @@
-class Api::V1::AuthController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_action :authorized, only: %i[create]
 
   def create
@@ -6,7 +6,7 @@ class Api::V1::AuthController < ApplicationController
     #User#authenticate comes from BCrypt
     if @user && @user.authenticate(user_login_params[:password])
       # encode token comes from ApplicationController
-      token = encode_token({ user_id: @user.id })
+      token = Auth.issue({ user_id: @user.id })
       render json: 
       { user: UserSerializer.new(@user), jwt: token }, 
       status: :accepted
@@ -22,6 +22,9 @@ class Api::V1::AuthController < ApplicationController
   def user_login_params
     params
     .require(:user)
-    .permit(:username, :password)
+    .permit(
+      :username, 
+      :password
+    )
   end
 end

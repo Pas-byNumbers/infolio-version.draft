@@ -5,8 +5,9 @@ Rails.application.routes.draw do
         index
         create
       ]
-      post '/login', to: 'auth#create'
+      
       get '/profile', to: 'users#profile'
     end
   end
+  post '/login', to: 'sessions#create'
 end
