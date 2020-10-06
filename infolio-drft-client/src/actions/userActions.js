@@ -2,7 +2,7 @@
 
 export const userLogInFetch = userInfo => {
   return async dispatch => {
-    const resp = await fetch("http://localhost:3000/api/v1/login", {
+    const resp = await fetch("/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const userLogInFetch = userInfo => {
 
 export const userCreate = userInfo => {
   return async dispatch => {
-    const resp = await fetch("http://localhost:3000/api/v1/users", {
+    const resp = await fetch("/api/v1/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
