@@ -1,18 +1,41 @@
 export const userReducer = (
   state = {
     isAuthenticated: false,
-    isAuthenticating: false,
+    requestingAuth: false,
     currentUser: {},
+    errors: []
   },
   action
 ) => {
   switch (action.type) {
-    case "AUTHENTICATING_USER":
-      return { ...state, currentUser: action.payload };
-    case "AUTHENTICATED USER":
-      return { ...state}
+    case "AUTHENTICATION_REQUEST":
+      return {
+        ...state,
+        requestingAuth: true,
+      };
+
+    case "USER_AUTH_SUCCESS":
+      return {
+        ...state,
+        requestingAuth: false,
+        isAuthenticated: true,
+        currentUser: action.payload.data,
+      };
+
+    case "USER_AUTH_FAILURE":
+      return {
+        ...state,
+        requestingAuth: false,
+        isAuthenticated: false,
+        currentUser: {},
+        errors: action.errors || []
+      };
+
     case "LOGOUT_USER":
-      return { ...state, currentUser: {} };
+      return { ...state,
+        isAuthenticated: false, 
+        currentUser: {} 
+      };
 
     default:
       return state;

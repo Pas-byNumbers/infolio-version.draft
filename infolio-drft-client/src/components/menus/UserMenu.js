@@ -1,43 +1,87 @@
-import React from "react";
-import UserRegister from "./modals/UserRegister";
-import Paper from "@material-ui/core/Paper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import UserRegister from "../modals/UserRegister";
+import UserLogin from "../modals/UserLogin"
+import Button from "@material-ui/core/Button";
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    flexGrow: 1,
   },
-  paper: {
-    marginRight: theme.spacing(160),
-    marginBottom: theme.spacing(80)
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
+  title: {
+    flexGrow: 1,
+  },
+  userMainButtons: {
+    marginLeft: theme.spacing(2)
+  }
 }));
 
-export default function UserMenu() {
+function UserMenu(
+  {
+    handleLogout,
+    currentUser
+  }
+) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+
+  const [ loggedIn, setLoggedIn ] = useState(false)
+
+  const checkUserAuth = () => {
+    if (!!(currentUser && localStorage.token)) {
+      setLoggedIn(true)
+    }
+    else {
+      setLoggedIn(false)
+    }
+  }
+
+  useEffect(() => {
+    checkUserAuth()
+  })
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <MenuList>
-          <MenuItem>Home</MenuItem>
-          {!!localStorage.token ? (
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Infolio
+          </Typography>
+          <div className={classes.userMainButtons}>
+            {loggedIn ? (
             <div>
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Log Out</MenuItem>
+              <Button>Profile</Button>
+              <Button onClick={handleLogout}>Log Out</Button>
             </div>
           ) : (
             <div>
                 <UserRegister />
-              <MenuItem>Log In</MenuItem>
+                <UserLogin />
             </div>
           )}
-        </MenuList>
-      </Paper>
+          </div>
+          {/* <Button onClick={checkUserAuth}>check auth</Button> */}
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    currentUser: state.user.currentUser,
+  }
+}
+
+export default connect(mapStateToProps, null)(UserMenu)
