@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
       status: :created
     else
       render json: 
-      { error: 'failed to create user' }, 
+      { message: 'failed to create user' }, 
       status: :not_acceptable
     end
   end
