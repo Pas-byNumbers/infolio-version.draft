@@ -5,12 +5,16 @@ Rails.application.routes.draw do
         index
         show
         create
+        update
+        destroy
       ]
 
       resources :users, only: %i[
         index
         create
         profile
+        update
+        destroy
       ]
       
       get '/profile', to: 'users#profile'
