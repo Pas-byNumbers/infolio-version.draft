@@ -1,7 +1,8 @@
 export const noteReducer = (
   state = {
     userNotes: [],
-    loading: false
+    loading: false,
+    errors: []
   }, action
 ) => {
   switch(action.type) {
@@ -16,6 +17,12 @@ export const noteReducer = (
         ...state,
         userNotes: action.payload.data,
         loading: false
+      }
+    
+    case "ERROR_FOUND" :
+      return {
+        ...state,
+        errors: action.errors
       }
 
     default: 

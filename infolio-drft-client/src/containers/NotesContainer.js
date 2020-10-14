@@ -1,10 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { connect } from "react-redux"
 import { fetchUserNotes } from "../actions/noteActions"
 
 function NotesContainer() {
 
-  
+  useEffect(() => {
+    fetchUserNotes()
+  })
 
   return (
     <div>
@@ -15,4 +17,6 @@ function NotesContainer() {
 
 
 
-export default connect(null, null)(NotesContainer)
+export default connect(null, {
+  fetchUserNotes
+})(NotesContainer)

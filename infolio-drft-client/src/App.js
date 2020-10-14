@@ -3,6 +3,7 @@ import {
   logoutUser,
   getUserProfile
 } from './actions/userActions'
+import { fetchUserNotes } from "./actions/noteActions"
 import UserMenu from "./components/menus/UserMenu";
 import "./App.css";
 import { connect } from "react-redux";
@@ -17,7 +18,7 @@ function App(
 ) {
 
   useEffect(() => {
-    getUserProfile()
+    getUserProfile();
   });
 
 
@@ -52,5 +53,5 @@ export default connect(
   null, 
   { 
     logoutUser,
-    getUserProfile 
+    getUserProfile,
   })(App)
