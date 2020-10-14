@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from 'redux-thunk';
 import { userReducer } from "./reducers/userReducer";
+import { noteReducer } from "./reducers/noteReducer"
 
 import "./index.css";
 import App from "./App";
@@ -12,6 +13,7 @@ import * as serviceWorker from "./serviceWorker";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  note: noteReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -6,6 +6,8 @@ import {
 import UserMenu from "./components/menus/UserMenu";
 import "./App.css";
 import { connect } from "react-redux";
+import { Switch, Route} from "react-router-dom";
+import NotesContainer from "./containers/NotesContainer";
 
 function App(
   {
@@ -28,6 +30,16 @@ function App(
           handleLogout={logoutUser}
         />
       </header>
+      <body>
+        <Switch>
+        <Route path="/notes">
+          <NotesContainer />
+        </Route>
+
+        <Route exact path="/" />
+      </Switch>
+      </body>
+      
     </div>
   );
 }
