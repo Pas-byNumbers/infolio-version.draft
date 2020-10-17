@@ -18,10 +18,11 @@ const handleError = (message) => {
   };
 };
 
+
 export const fetchUserNotes = () => {
-  console.log("hit this process")
-  const token = localStorage.token;
+  
   return async (dispatch) => {
+    const token = localStorage.token;
     dispatch(loadNotes());
     const resp = await fetch("/api/v1/notes", {
       method: "GET",
@@ -32,6 +33,7 @@ export const fetchUserNotes = () => {
       },
     });
     const promise = await resp.json();
+
     if (promise.message) {
       dispatch(handleError(promise.message));
     } else {

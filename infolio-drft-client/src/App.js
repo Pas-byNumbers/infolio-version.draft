@@ -1,57 +1,49 @@
 import React, { useState, useEffect } from "react";
-import {
-  logoutUser,
-  getUserProfile
-} from './actions/userActions'
-import { fetchUserNotes } from "./actions/noteActions"
+import { logoutUser, getUserProfile } from "./actions/userActions";
 import UserMenu from "./components/menus/UserMenu";
 import "./App.css";
 import { connect } from "react-redux";
-import { Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NotesContainer from "./containers/NotesContainer";
 
-function App(
-  {
-    logoutUser,
-    getUserProfile
-  }
-) {
+function App({
+  // currentUserData,
+  logoutUser,
+  getUserProfile,
+}) {
+  // const [ currentUser, setCurrentUser ] = React.useState(currentUserData)
 
   useEffect(() => {
     getUserProfile();
   });
 
-
-
   return (
-    
     <div className="App">
       <header className="App-header">
-        <UserMenu 
-          handleLogout={logoutUser}
-        />
+        <UserMenu handleLogout={logoutUser} />
       </header>
       <body>
-        <Switch>
-        <Route path="/notes">
-          <NotesContainer />
-        </Route>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/notes">
+              <NotesContainer />
+            </Route>
 
-        <Route exact path="/" />
-      </Switch>
+            <Route exact path="/" />
+          </Switch>
+        </BrowserRouter>
       </body>
-      
     </div>
   );
 }
 
-
-
-
-
 export default connect(
-  null, 
-  { 
+  // state => ({
+  //   currentUserData: state.user.currentUser
+  // }),
+  null,
+  {
     logoutUser,
     getUserProfile,
-  })(App)
+  }
+)(App);
