@@ -21,10 +21,12 @@
 
 
   20.times do
-  Note.create(title: Faker::Book.title, content: Faker::Quote.famous_last_words, user_id: rand(1..4))
+  Note.create(title: Faker::Book.title, content: Faker::Quote.famous_last_words, user_id: 1)
   end
 
-
+  40.times do
+    Comment.create(text: Faker::ChuckNorris.fact, user_id: rand(1..4), note_id: rand(1..20))
+  end
 
   puts '+++++++++++++++++'
   puts 'End of Initial Seed'
