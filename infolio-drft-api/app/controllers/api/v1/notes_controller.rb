@@ -25,7 +25,7 @@ class Api::V1::NotesController < ApplicationController
 
   def update
     if @note.update(note_params)
-      render json: { user: NoteSerializer.new(@note) },
+      render json: { note: NoteSerializer.new(@note) },
              status: :accepted
     else
       render json: { message: "failed to update note" },

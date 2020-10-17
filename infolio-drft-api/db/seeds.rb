@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-  4.times do
+  # 4.times do
     User.create(
       username: Faker::Internet.username,
       password: 'pwtest',
@@ -16,17 +16,18 @@
       last_name: Faker::Name.last_name,
       country: Faker::Address.country
     )
-  end
+  # end
 
 
 
-  20.times do
+  5.times do
   Note.create(title: Faker::Book.title, content: Faker::Quote.famous_last_words, user_id: 1)
   end
 
-  40.times do
-    Comment.create(text: Faker::ChuckNorris.fact, user_id: rand(1..4), note_id: rand(1..20))
+  20.times do
+    Comment.create(text: Faker::ChuckNorris.fact, user_id: 1, note_id: rand(1..5))
   end
+  
 
   puts '+++++++++++++++++'
   puts 'End of Initial Seed'
